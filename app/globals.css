@@ -80,3 +80,114 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Logo Circle Styles */
+.logo-circle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: rotate 20s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.logo-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-45%);
+  transform-origin: center center;
+  transition: transform 0.5s ease-out;
+}
+
+.wheel-expanded .logo-item {
+  transform: translate(-50%, -50%) rotate(var(--rotation)) translateY(-180%);
+}
+
+.logo-content {
+  position: relative;
+  transform: rotate(calc(-1 * var(--rotation)));
+  transition: transform 0.5s ease-out;
+}
+
+.logo-wrapper {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.wheel-expanded .logo-wrapper {
+  transform: scale(1.1);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.logo-name {
+  position: absolute;
+  left: 50%;
+  bottom: -2rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: white;
+  font-size: 0.875rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.wheel-expanded .logo-name {
+  opacity: 1;
+}
+
+@media (min-width: 640px) {
+  .logo-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+  .logo-name {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .logo-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Bottom fade effect */
+.logo-item {
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.5s ease-out;
+}
+
+.logo-item[style*="rotate(180deg)"],
+.logo-item[style*="rotate(210deg)"],
+.logo-item[style*="rotate(150deg)"] {
+  opacity: 0.2;
+}
+
+.wheel-expanded .logo-item[style*="rotate(180deg)"],
+.wheel-expanded .logo-item[style*="rotate(210deg)"],
+.wheel-expanded .logo-item[style*="rotate(150deg)"] {
+  opacity: 0.4;
+}
