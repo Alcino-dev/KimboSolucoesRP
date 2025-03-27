@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import Modal from "react-modal";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ScrollToTopButton } from "@/components/ScrollToTopButton";
+import Image from "next/image";
 
 const services = [
   {
@@ -127,31 +128,44 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50">
 
-      <section
-        className="-top-20 relative text-white py-28"
-        style={{
-          backgroundImage: "url('/fundoOrcamento.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+     <section className="relative h-[420px] -mt-20">
+            <div className="absolute inset-0">
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="w-full h-full"
+              >
+              <Image
+                src="/fundoOrcamento.webp"
+                alt="Contacto KIMBO Soluções"
+                fill
+                className="object-cover brightness-[0.7]"
+                priority
+                sizes="100vw"
+                quality={85}
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkLzYvLy0vLi44QjQ4OEQ4LjE1REVHS1NTW1xfXkVnaWVsbUVbW1v/2wBDARUXFx4aHR4eHVtTQlNbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1v/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+              />
+            </motion.div>
+            </div>
         <div className="fixed bottom-8 right-8 z-50">
           <WhatsAppButton phoneNumber="+244944070757" />
 
           <ScrollToTopButton />
         </div>
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div className="container mx-auto px-4 relative z-10 top-10">
+        <div className="container mx-auto px-4 relative z-10 top-52">
           <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="mt-20 text-center"
+            className="max-w-2xl mt-20 text-center pl-20"
           >
-            <h1 className="text-5xl font-bold mb-6">Solicite seu Orçamento</h1>
-            <p className="text-xl opacity-90">
+            <h1 className="text-5xl font-bold mb-6 text-white  text-left">Solicite seu Orçamento</h1>
+            <p className="opacity-90 text-white  text-left text-lg md:text-xl">
               Transforme seu ambiente em um espaço mais seguro e saudável com
-              nossos serviços especializados
+              nossos serviços especializados, solicite seu orçamento, nossa equipe entrará em contacto.
             </p>
           </motion.div>
         </div>

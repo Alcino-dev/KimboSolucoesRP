@@ -63,7 +63,7 @@ export default function Servicos() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-2xl"
+            className="max-w-2xl pl-20"
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
               Nossos Serviços
