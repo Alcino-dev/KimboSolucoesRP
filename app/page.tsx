@@ -27,28 +27,28 @@ import "slick-carousel/slick/slick-theme.css";
 
 const services = [
   {
-    image: "./imgS1.jpg",
+    image: "./imgS1.webp",
     icon: <Spray className="h-8 w-8" />,
     title: "Limpeza",
     description:
       "Eliminação eficaz de sujeira e detritos, garantindo ambientes limpos, higienizados e o conforto do clinte.",
   },
   {
-    image: "./imgS2.jpg",
+    image: "./imgS2.webp",
     icon: <Flower className="h-8 w-8" />,
     title: "Jardinagem",
     description:
       "Cuidados especializados para manter seu jardim sempre verde e saudável, com podas e tratamentos.",
   },
   {
-    image: "./imgS3.jpg",
+    image: "./imgS3.webp",
     icon: <ThermometerSun className="h-8 w-8" />,
     title: "Climatização",
     description:
       "Soluções de climatização para ambientes agradáveis, com instalação e manutenção.",
   },
   {
-    image: "./imgS4.jpg",
+    image: "./imgS4.webp",
     icon: <Bug className="h-8 w-8" />,
     title: "Desinfestação",
     description:
@@ -103,15 +103,15 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
       <section className="h-screen relative overflow-hidden">
-      <HomeScreen />
+        <HomeScreen />
         <div className="fixed bottom-8 right-8 z-50">
           <WhatsAppButton phoneNumber="+244944070757" />
+
+          <ScrollToTopButton />
         </div>
       </section>
 
-      {/* Services Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -121,7 +121,7 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -141,12 +141,21 @@ export default function Home() {
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
               >
-                <Card className="relative p-6 text-center hover:shadow-xl transition-all duration-300 overflow-visible bg-white/80 backdrop-blur-sm border-t-4 border-[#75B53F]" style={{borderTopLeftRadius: "80px", borderBottomRightRadius: "80px"}}>
-                  <div className="relative mx-auto mb-6" style={{
-                    width: "220px",
-                    height: "200px",
-                    marginTop: "-60px",
-                  }}>
+                <Card
+                  className="relative p-6 text-center hover:shadow-xl transition-all duration-300 overflow-visible bg-white/80 backdrop-blur-sm border-t-4 border-[#75B53F]"
+                  style={{
+                    borderTopLeftRadius: "80px",
+                    borderBottomRightRadius: "80px",
+                  }}
+                >
+                  <div
+                    className="relative mx-auto mb-6"
+                    style={{
+                      width: "220px",
+                      height: "200px",
+                      marginTop: "-60px",
+                    }}
+                  >
                     <div className="absolute inset-0 rounded-full overflow-hidden border-4 border-white shadow-lg">
                       <Image
                         alt={`${service.title} service`}
@@ -159,9 +168,17 @@ export default function Home() {
                   <div className="text-[#75B53F] flex justify-center mt-4 mb-4">
                     {service.icon}
                   </div>
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900">{service.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-                  <Link href={`/servicos#${service.title.toLowerCase().replace(/ /g, "-")}`}>
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {service.description}
+                  </p>
+                  <Link
+                    href={`/servicos#${service.title
+                      .toLowerCase()
+                      .replace(/ /g, "-")}`}
+                  >
                     <Button
                       variant="outline"
                       className="group bg-[#018001] text-white hover:bg-[#75B53F] hover:text-white transition-all duration-300"
@@ -177,7 +194,6 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Why Choose Us Section */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -185,7 +201,7 @@ export default function Home() {
         viewport={{ once: true }}
         className="relative py-24"
         style={{
-          backgroundImage: "url('/imgSection1.jpg')",
+          backgroundImage: "url('/imgSection1.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -195,7 +211,7 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
@@ -228,7 +244,7 @@ export default function Home() {
               className="relative"
             >
               <Image
-                src="/imgConjunto.png"
+                src="/imgConjunto.webp"
                 alt="Serviços ilustrativos"
                 width={600}
                 height={600}
@@ -239,7 +255,6 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Client Testimonials Section */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -249,7 +264,7 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -260,30 +275,31 @@ export default function Home() {
             <div className="w-24 h-1 bg-[#75B53F] mx-auto"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {["01.png", "02.png", "03.png", "04.png"].map((image, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <Image
-                  src={`/${image}`}
-                  alt={`Testimonial ${index + 1}`}
-                  width={300}
-                  height={300}
-                  className="object-contain mx-auto transform hover:scale-105 transition-transform duration-300"
-                />
-              </motion.div>
-            ))}
+            {["01.webp", "02.webp", "03.webp", "04.webp"].map(
+              (image, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
+                  className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <Image
+                    src={`/${image}`}
+                    alt={`Testimonial ${index + 1}`}
+                    width={300}
+                    height={300}
+                    className="object-contain mx-auto transform hover:scale-105 transition-transform duration-300"
+                  />
+                </motion.div>
+              )
+            )}
           </div>
         </div>
       </motion.section>
 
-      {/* Infrastructure Section */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -291,7 +307,7 @@ export default function Home() {
         viewport={{ once: true }}
         className="relative py-24"
         style={{
-          backgroundImage: "url('/imgSection2.jpg')",
+          backgroundImage: "url('/imgSection2.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -301,7 +317,7 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <motion.h2 
+              <motion.h2
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
@@ -321,7 +337,9 @@ export default function Home() {
                     className="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform transition-all duration-300"
                   >
                     {infra.icon}
-                    <p className="mt-4 font-medium text-gray-800">{infra.name}</p>
+                    <p className="mt-4 font-medium text-gray-800">
+                      {infra.name}
+                    </p>
                   </motion.div>
                 ))}
               </div>
@@ -333,7 +351,7 @@ export default function Home() {
               className="relative"
             >
               <Image
-                src="/imgMix.png"
+                src="/imgMix.webp"
                 alt="Infraestruturas"
                 width={600}
                 height={600}
@@ -344,7 +362,6 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Step-by-Step Section */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -354,7 +371,7 @@ export default function Home() {
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -375,16 +392,20 @@ export default function Home() {
                 whileHover={{ y: -10 }}
                 className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-t-4 border-[#75B53F]"
               >
-                <div className="text-[#75B53F] text-5xl font-bold mb-6">{step.step}</div>
-                <h3 className="text-2xl font-bold mb-4 text-gray-900">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                <div className="text-[#75B53F] text-5xl font-bold mb-6">
+                  {step.step}
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {step.description}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </motion.section>
-
-      <ScrollToTopButton />
     </>
   );
 }

@@ -1,316 +1,176 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Bug, Flower, ThermometerSun, SprayCan as Spray, ArrowRight } from 'lucide-react';
+import { useState, useCallback } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
+import {
+  Bug,
+  Flower,
+  ThermometerSun,
+  SprayCan as Spray,
+  ArrowRight,
+} from "lucide-react";
 
-// Define TypeScript interfaces for type safety
-interface ServiceDetail {
-  title: string;
-  description: string;
-  image: string;
-  details: string[];
-}
-
-interface ServiceCategory {
-  id: string;
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  image: string;
-  services: ServiceDetail[];
-}
-
-const categories: ServiceCategory[] = [
-  {
-    id: 'limpeza',
-    icon: <Spray className="h-12 w-12" />,
-    title: 'Limpeza',
-    description: 'Eliminação eficaz de sujeira e detritos, garantindo ambientes limpos e higienizados.',
-    image: '/images/services/limpeza.jpg',
-    services: [
-      {
-        title: 'Higienização e Sanitização',
-        description: 'Serviços especializados para garantir a higienização e sanitização de ambientes.',
-        image: '/images/services/serv1.jpg',
-        details: [
-          'Desinfecção de superfícies',
-          'Sanitização de ambientes',
-          'Tratamento anti-bacteriano',
-          'Controle de odores'
-        ]
-      },
-      {
-        title: 'Limpeza Comercial',
-        description: 'Serviços completos de limpeza para estabelecimentos comerciais.',
-        image: '/images/services/serv2.jpg',
-        details: [
-          'Limpeza de escritórios',
-          'Manutenção de áreas comuns',
-          'Limpeza de vidros e fachadas',
-          'Conservação de pisos'
-        ]
-      },
-      {
-        title: 'Limpeza Residencial',
-        description: 'Serviços personalizados de limpeza para sua residência.',
-        image: '/images/services/serv3.jpg',
-        details: [
-          'Limpeza geral',
-          'Limpeza de carpetes e estofados',
-          'Limpeza de janelas',
-          'Organização de ambientes'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'jardinagem',
-    icon: <Flower className="h-12 w-12" />,
-    title: 'Jardinagem',
-    description: 'Serviços completos de jardinagem para manter seus espaços verdes bonitos e saudáveis.',
-    image: '/images/services/jardinagem.jpg',
-    services: [
-      {
-        title: 'Projeto e Implantação',
-        description: 'Criação e execução de projetos paisagísticos personalizados.',
-        image: '/images/services/serv4.jpg',
-        details: [
-          'Design de jardins',
-          'Seleção de plantas',
-          'Sistemas de irrigação',
-          'Iluminação paisagística'
-        ]
-      },
-      {
-        title: 'Manutenção de Jardins',
-        description: 'Cuidados regulares para manter seu jardim sempre bonito.',
-        image: '/images/services/serv5.jpg',
-        details: [
-          'Poda de plantas',
-          'Controle de pragas',
-          'Adubação',
-          'Corte de grama'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'climatizacao',
-    icon: <ThermometerSun className="h-12 w-12" />,
-    title: 'Climatização',
-    description: 'Soluções completas em climatização para seu conforto térmico.',
-    image: '/images/services/climatizacao.jpg',
-    services: [
-      {
-        title: 'Instalação de Sistemas',
-        description: 'Instalação profissional de equipamentos de climatização.',
-        image: '/images/services/serv6.jpg',
-        details: [
-          'Instalação de ar-condicionado',
-          'Dimensionamento de sistemas',
-          'Instalação de dutos',
-          'Configuração de controles'
-        ]
-      },
-      {
-        title: 'Manutenção Preventiva',
-        description: 'Serviços regulares para prevenir problemas e maximizar eficiência.',
-        image: '/images/services/serv7.jpg',
-        details: [
-          'Limpeza de filtros',
-          'Verificação de gás',
-          'Limpeza de componentes',
-          'Ajustes de performance'
-        ]
-      },
-      {
-        title: 'Manutenção Corretiva',
-        description: 'Soluções rápidas para problemas de climatização.',
-        image: '/images/services/serv8.jpg',
-        details: [
-          'Diagnóstico de falhas',
-          'Reparo de componentes',
-          'Substituição de peças',
-          'Correção de vazamentos'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'desinfestacao',
-    icon: <Bug className="h-12 w-12" />,
-    title: 'Desinfestação',
-    description: 'Controle eficaz de pragas para um ambiente seguro e saudável.',
-    image: '/images/services/desinfestacao.jpg',
-    services: [
-      {
-        title: 'Controle de Roedores',
-        description: 'Eliminação e prevenção contra ratos e outros roedores.',
-        image: '/images/services/serv9.jpg',
-        details: [
-          'Identificação de focos',
-          'Instalação de barreiras',
-          'Controle químico',
-          'Monitoramento contínuo'
-        ]
-      },
-      {
-        title: 'Controle de Insetos',
-        description: 'Combate eficaz a diferentes tipos de insetos.',
-        image: '/images/services/serv10.jpg',
-        details: [
-          'Controle de baratas',
-          'Eliminação de formigas',
-          'Combate a cupins',
-          'Prevenção de infestações'
-        ]
-      },
-      {
-        title: 'Sanitização Ambiental',
-        description: 'Tratamento completo para ambientes mais saudáveis.',
-        image: '/images/services/serv11.jpg',
-        details: [
-          'Desinfecção de ambientes',
-          'Controle de microorganismos',
-          'Tratamento preventivo',
-          'Certificação sanitária'
-        ]
-      }
-    ]
-  }
-];
+import { categories } from "./data";
 
 export default function Servicos() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const scrollToCategory = (categoryId: string) => {
+  const scrollToCategory = useCallback((categoryId: string) => {
     const element = document.getElementById(categoryId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
       setSelectedCategory(categoryId);
     }
-  };
+  }, []);
 
-  return (     
+  return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section
-        className="relative text-white py-28 -top-20"
-        style={{
-          backgroundImage: "url('/fundoSection.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div className="container mx-auto px-4 relative z-10 top-10">
+      <section className="relative text-white h-[500px] -mt-20">
+        <div className="fixed bottom-8 right-8 z-50">
+          <WhatsAppButton phoneNumber="+244944070757" />
+
+          <ScrollToTopButton />
+        </div>
+        <div className="absolute inset-0">
+          <Image
+            src="/fundoSection.webp" 
+            alt="Serviços de Manutenção"
+            fill
+            className="object-cover brightness-[0.7]"
+            priority
+            sizes="100vw"
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkLzYvLy0vLi44QjQ4OEQ4LjE1REVHS1NTW1xfXkVnaWVsbUVbW1v/2wBDARUXFx4aHR4eHVtTQlNbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1tbW1v/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+          />
+        </div>
+
+        <div className="container mx-auto px-4 h-full flex items-center relative z-10 top-20">
           <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mt-20 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl"
           >
-            <h1
-              className="text-6xl font-bold mb-6 text-left ml-4"
-              style={{ fontFamily: "Arial, sans-serif" }}
-            >
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
               Nossos Serviços
             </h1>
-            <p
-              className="text-xl max-w-xl text-left ml-4"
-              style={{ fontFamily: "Arial, sans-serif" }}
-            >
-              Nossos serviços são pensados para atender a diferentes necessidades e orçamentos, sempre com qualidade, eficiência e inovação.
+            <p className="text-lg md:text-xl opacity-90 max-w-xl">
+              Soluções completas e profissionais para todas as suas necessidades
+              de manutenção e conservação.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Categories Navigation */}
-      <div className="container mx-auto px-4 mb-10">
-        <div className="flex flex-wrap justify-center gap-4">
-          {categories.map((category) => (
-            <Button 
-              key={category.id}
-              variant="outline" 
-              onClick={() => scrollToCategory(category.id)}
-              className={`
-                ${selectedCategory === category.id 
-                  ? 'bg-[#75B53F] text-white' 
-                  : 'bg-white text-[#75B53F] hover:bg-[#75B53F]/10'
+      <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-20 py-4 shadow-sm">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <Button
+                key={category.id}
+                variant={
+                  selectedCategory === category.id ? "default" : "outline"
                 }
-              `}
-            >
-              {category.title}
-            </Button>
-          ))}
+                onClick={() => scrollToCategory(category.id)}
+                className={`
+                  transition-all duration-300
+                  ${
+                    selectedCategory === category.id
+                      ? "bg-[#75B53F] text-white scale-105"
+                      : "hover:bg-[#ffd200]/50 hover:text-[#000]"
+                  }
+                `}
+              >
+                <span className="flex items-center gap-2 w-32 h-32">
+                  {category.icon}
+                  {category.title}
+                </span>
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Categories Section */}
-      <section className="-py-28">
-        <div className="container mx-auto px-4 mb-20">
-          <div className="grid grid-cols-1 gap-16">
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 gap-24">
             {categories.map((category) => (
               <motion.div
                 key={category.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true, margin: "-100px" }}
                 id={category.id}
-                className="space-y-8"
+                className="space-y-12"
               >
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="text-[#75B53F]">{category.icon}</div>
-                  <h2 className="text-3xl font-bold text-center">{category.title}</h2>
+                <div className="text-center space-y-4">
+                  <div className="inline-block p-4 rounded-full bg-[#75B53F]/10 text-[#75B53F]">
+                    {category.icon}
+                  </div>
+                  <h2 className="text-3xl font-bold">{category.title}</h2>
+                  <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {category.description}
+                  </p>
                 </div>
-                <p className="text-xl text-gray-600 text-center">{category.description}</p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {category.services.map((service) => (
-                    <Card 
-                      key={service.title} 
-                      className="overflow-hidden transition-all duration-300 hover:shadow-lg"
+                  {category.services.map((service, index) => (
+                    <motion.div
+                      key={service.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
                     >
-                      <div className="relative h-48 overflow-hidden">
-                        <Image
-                          src={service.image}
-                          alt={service.title}
-                          fill
-                          className="object-cover transition-transform duration-300 hover:scale-110"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                        <p className="text-gray-600 mb-4">{service.description}</p>
-                        <ul className="space-y-2 mb-6">
-                          {service.details.map((detail, detailIndex) => (
-                            <li 
-                              key={detailIndex} 
-                              className="flex items-center text-gray-600 hover:text-[#75B53F] transition-colors"
-                            >
-                              <span className="w-2 h-2 bg-[#75B53F] rounded-full mr-2"></span>
-                              {detail}
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                          <Link href={`/orcamento?service=${category.id}`} className="flex-1">
-                            <Button className="w-full bg-[#75B53F] hover:bg-[#e2ba00] transition-colors">
-                              Pedir Orçamento
+                      <Card className="h-full flex flex-col group hover:shadow-lg transition-all duration-300">
+                        <div className="relative h-48 overflow-hidden">
+                          <Image
+                            src={service.image}
+                            alt={service.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="p-6 flex-1 flex flex-col">
+                          <h3 className="text-xl font-bold mb-3">
+                            {service.title}
+                          </h3>
+                          <p className="text-gray-600 mb-4">
+                            {service.description}
+                          </p>
+                          <ul className="space-y-2 mb-6 flex-1">
+                            {service.details.map((detail, detailIndex) => (
+                              <li
+                                key={detailIndex}
+                                className="flex items-center text-gray-600 group-hover:text-[#75B53F] transition-colors"
+                              >
+                                <span className="w-2 h-2 bg-[#75B53F] rounded-full mr-2"></span>
+                                {detail}
+                              </li>
+                            ))}
+                          </ul>
+                          <Link
+                            href={`/orcamento?service=${category.id}`}
+                            className="mt-auto"
+                          >
+                            <Button className="w-full bg-[#75B53F] hover:bg-[#75B53F]/90 transition-colors">
+                              Solicitar Orçamento
                               <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                           </Link>
                         </div>
-                      </div>
-                    </Card>
+                      </Card>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>

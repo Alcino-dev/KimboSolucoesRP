@@ -54,8 +54,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'alcinojaimefernandes@gmail.com', // Updated email
-        pass: 'xxmz dfap expx pwyb' // Updated password
+        user: 'alcinojaimefernandes@gmail.com',
+        pass: 'xxmz dfap expx pwyb' 
       }
     });
 
@@ -79,11 +79,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     try {
-      console.log('Sending email with options:', mailOptions); // Add logging
+      console.log('Sending email with options:', mailOptions);
       await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Email enviado com sucesso' });
     } catch (error) {
-      console.error('Error sending email:', error); // Add logging
+      console.error('Error sending email:', error); 
       res.status(500).json({ message: 'Erro ao enviar email', error: (error as any).message });
     }
   } else {

@@ -103,7 +103,7 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-black text-white">
-      {/* Texture overlay */}
+
       <div 
         className="absolute inset-0 opacity-10"
         style={{
@@ -111,7 +111,6 @@ const Footer = () => {
         }}
       />
       
-      {/* Green gradient overlay */}
       <div 
         className="absolute inset-0 opacity-30"
         style={{
@@ -121,7 +120,7 @@ const Footer = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 py-12 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
+
           <div className="space-y-4">
             <h3 className="text-2xl font-bold mb-4 text-[#75B53F]">KIMBO Soluções</h3>
             <p className="text-gray-300 leading-relaxed">
@@ -130,7 +129,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h3 className="text-white font-semibold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
@@ -142,7 +140,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Info */}
           <div>
             <h3 className="text-white font-semibold mb-4">Contactos</h3>
             <ul className="space-y-2">
@@ -155,7 +152,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social Media */}
           <div>
             <h3 className="text-white font-semibold mb-4">Redes Sociais</h3>
             <div className="flex space-x-4">
@@ -174,7 +170,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Privacy Section */}
         <div className="mt-12 pt-8 border-t border-gray-500">
           <div className="text-center mb-4">
             <button onClick={() => setShowPrivacy(!showPrivacy)} className="flex items-center gap-2 mx-auto text-gray-400 hover:text-white transition-colors">
@@ -199,7 +194,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Modal */}
       {modalContent && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeModal}>
           <div className="bg-white p-8 rounded-lg max-w-lg w-full max-h-full overflow-y-auto" onClick={(e) => e.stopPropagation()}>

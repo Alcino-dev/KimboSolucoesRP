@@ -6,22 +6,22 @@ import Link from 'next/link';
 
 const slides = [
   {
-    image: "img1.jpg",
+    image: "img1.webp",
     title: "Bem-vindo à Kimbo Soluções",
     subtitle: "Soluções completas em desinfestação, limpeza, jardinagem e climatização",
   },
   {
-    image: "img2.jpg",
+    image: "img2.webp",
     title: "Desinfestação Profissional",
     subtitle: "Proteja sua casa e empresa contra pragas com nossos serviços especializados",
   },
   {
-    image: "img3.jpg",
+    image: "img3.webp",
     title: "Limpeza Profunda",
     subtitle: "Ambientes higienizados e livres de impurezas para seu conforto e segurança",
   },
   {
-    image: "img4.jpg",
+    image: "img4.webp",
     title: "Soluções em Climatização",
     subtitle: "Instalação e manutenção de sistemas de climatização para seu bem-estar",
   },
@@ -76,7 +76,7 @@ export default function HomeScreen() {
   
   return (
     <main className="relative min-h-screen">
-      {/* Carousel */}
+
       <div className="relative h-screen overflow-hidden">
         {slides.map((slide, index) => (
           <div
@@ -94,7 +94,6 @@ export default function HomeScreen() {
           </div>
         ))}
 
-        {/* Content */}
         <div className="relative h-full flex items-center justify-center px-4 md:px-0">
           <div className="text-center">
             <h2
@@ -124,7 +123,6 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* Navigation Buttons */}
         <button
           onClick={prevSlide}
           className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 md:w-12 h-10 md:h-12 bg-black bg-opacity-30 rounded-full flex items-center justify-center text-white hover:bg-opacity-50 transition-all"
@@ -138,7 +136,6 @@ export default function HomeScreen() {
           <ChevronRight size={24} />
         </button>
 
-        {/* Indicators */}
         <div className="absolute bottom-8 md:bottom-32 left-1/2 transform -translate-x-1/2 flex gap-3">
           {slides.map((_, index) => (
             <button

@@ -33,7 +33,7 @@ export default function Header() {
   return (
     <header className="bg-[#fff] text-black w-full z-50">
       <nav className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-4 lg:px-8 py-4">
-        {/* Mobile Menu Button */}
+
         {isMobile && (
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -44,7 +44,6 @@ export default function Header() {
           </button>
         )}
 
-        {/* Desktop Navigation */}
         {!isMobile && (
           <div className="relative flex items-center">
             <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl -z-10" />
@@ -62,14 +61,12 @@ export default function Header() {
           </div>
         )}
 
-        {/* Logo */}
         <div className={`flex-1 flex justify-center ${isMobile ? '' : 'relative right-28'}`}>
           <Link href="/">
-            <Image src="/Logo.png" width={isMobile ? 200 : 250} height={isMobile ? 80 : 100} alt="Logo" priority />
+            <Image src="/LogoH.webp" width={isMobile ? 200 : 250} height={isMobile ? 80 : 100} alt="Logo" priority />
           </Link>
         </div>
 
-        {/* CTA Button */}
         <Link href="/orcamento" className={`${isMobile ? 'hidden' : 'block'}`}>
           <button
             className="bg-[#018001] text-white px-6 py-2 hover:bg-[#75B53F] transition-colors rounded-[40px]"
@@ -79,7 +76,6 @@ export default function Header() {
         </Link>
       </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

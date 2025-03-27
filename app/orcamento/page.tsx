@@ -1,29 +1,38 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Bug, Flower, ThermometerSun, SprayCan as Spray, Send, CheckCircle } from 'lucide-react';
-import { toast } from 'sonner';
-import Modal from 'react-modal';
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import {
+  Bug,
+  Flower,
+  ThermometerSun,
+  SprayCan as Spray,
+  Send,
+  CheckCircle,
+} from "lucide-react";
+import { toast } from "sonner";
+import Modal from "react-modal";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 
 const services = [
-  { 
-    id: 'Limpeza', 
-    label: 'Limpeza',
+  {
+    id: "Limpeza",
+    label: "Limpeza",
     icon: <Spray className="h-12 w-12" />,
   },
-  { 
-    id: 'Jardinagem', 
-    label: 'Jardinagem',
+  {
+    id: "Jardinagem",
+    label: "Jardinagem",
     icon: <Flower className="h-12 w-12" />,
   },
-  { 
-    id: 'Desinfestacao', 
-    label: 'Desinfestação',
+  {
+    id: "Desinfestacao",
+    label: "Desinfestação",
     icon: <ThermometerSun className="h-12 w-12" />,
   },
-  { 
-    id: 'Climatizacao', 
-    label: 'Climatização',
+  {
+    id: "Climatizacao",
+    label: "Climatização",
     icon: <Bug className="h-12 w-12" />,
   },
 ];
@@ -31,11 +40,11 @@ const services = [
 function App() {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    details: ''
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    details: "",
   });
   const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -45,23 +54,24 @@ function App() {
 
   const handleClickOutside = (event: MouseEvent) => {
     const target = event.target as Node;
-    const isOutside = Object.values(cardRefs.current).every(ref => ref && !ref.contains(target));
+    const isOutside = Object.values(cardRefs.current).every(
+      (ref) => ref && !ref.contains(target)
+    );
     if (isOutside) {
-      // Do not deselect the services when clicking outside
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedServices.length === 0) {
-      toast.error('Por favor, selecione pelo menos um serviço.');
+      toast.error("Por favor, selecione pelo menos um serviço.");
       return;
     }
 
@@ -74,55 +84,62 @@ function App() {
     };
 
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(emailData)
+        body: JSON.stringify(emailData),
       });
 
       if (response.ok) {
         setSuccess(true);
-        toast.success('Email enviado com sucesso!');
+        toast.success("Email enviado com sucesso!");
       } else {
         const errorData = await response.json();
         toast.error(`Erro ao enviar email: ${errorData.message}`);
       }
     } catch (error) {
-      toast.error('Erro ao enviar email.');
+      toast.error("Erro ao enviar email.");
     } finally {
       setLoading(false);
-      setTimeout(() => setModalIsOpen(false), 2000);
+      setTimeout(() => setModalIsOpen(false), 4000);
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleServiceClick = (serviceId: string) => {
-    setSelectedServices(prevSelectedServices =>
+    setSelectedServices((prevSelectedServices) =>
       prevSelectedServices.includes(serviceId)
-        ? prevSelectedServices.filter(id => id !== serviceId)
+        ? prevSelectedServices.filter((id) => id !== serviceId)
         : [...prevSelectedServices, serviceId]
     );
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
+
       <section
         className="-top-20 relative text-white py-28"
         style={{
-          backgroundImage: "url('/fundoOrcamento.jpg')",
+          backgroundImage: "url('/fundoOrcamento.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
+        <div className="fixed bottom-8 right-8 z-50">
+          <WhatsAppButton phoneNumber="+244944070757" />
+
+          <ScrollToTopButton />
+        </div>
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         <div className="container mx-auto px-4 relative z-10 top-10">
           <motion.div
@@ -133,26 +150,30 @@ function App() {
           >
             <h1 className="text-5xl font-bold mb-6">Solicite seu Orçamento</h1>
             <p className="text-xl opacity-90">
-              Transforme seu ambiente em um espaço mais seguro e saudável com nossos serviços especializados
+              Transforme seu ambiente em um espaço mais seguro e saudável com
+              nossos serviços especializados
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Grid */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Selecione o Serviço</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Selecione o Serviço
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service) => {
               const isSelected = selectedServices.includes(service.id);
               return (
                 <motion.div
                   key={service.id}
-                  ref={el => cardRefs.current[service.id] = el}
+                  ref={(el) => (cardRefs.current[service.id] = el)}
                   whileHover={{ scale: 1.02 }}
                   className={`p-6 rounded-xl border-2 cursor-pointer transition-colors ${
-                    isSelected ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-green-300'
+                    isSelected
+                      ? "border-green-500 bg-green-50"
+                      : "border-gray-200 hover:border-green-300"
                   }`}
                   onClick={() => handleServiceClick(service.id)}
                 >
@@ -165,7 +186,6 @@ function App() {
         </div>
       </section>
 
-      {/* Form Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 max-w-2xl">
           <motion.div
@@ -176,7 +196,9 @@ function App() {
           >
             <form onSubmit={handleSubmit} className="space-y-8">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Informações de Contato</h2>
+                <h2 className="text-2xl font-bold mb-6">
+                  Informações de Contato
+                </h2>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -250,10 +272,14 @@ function App() {
 
               <button
                 type="submit"
-                className={`w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                className={`w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
                 disabled={loading}
               >
-                {loading ? 'Processando...' : (
+                {loading ? (
+                  "Processando..."
+                ) : (
                   <>
                     <Send className="w-5 h-5" />
                     Solicitar Orçamento
@@ -265,7 +291,6 @@ function App() {
         </div>
       </section>
 
-      {/* Modal */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
@@ -288,7 +313,10 @@ function App() {
           ) : success ? (
             <div className="flex flex-col items-center">
               <CheckCircle className="w-12 h-12 text-green-500 mb-4" />
-              <p className="text-lg font-semibold">Email enviado com sucesso!</p>
+              <p className="text-lg font-semibold">
+                Email enviado com sucesso! <br />
+            Responderemos seu email assim que possível.
+              </p>
             </div>
           ) : (
             <div className="flex flex-col items-center">

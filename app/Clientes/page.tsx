@@ -8,27 +8,27 @@ export default function Clientes() {
   const clients = [
     {
       name: "Hotel Hagata",
-      logo: "/hotelAgata.png"
+      logo: "/hotelAgata.webp"
     },
     {
       name: "Banco Yetu",
-      logo: "/bancoyetu.jpg"
+      logo: "/bancoyetu.webp"
     },
     {
       name: "Restaurante Matabicho",
-      logo: "/matabicho.jpeg"
+      logo: "/matabicho.webp"
     },
     {
       name: "Restaurante Las Fronteras",
-      logo: "/lafrontera.png"
+      logo: "/lafrontera.webp"
     },
     {
       name: "Unitel",
-      logo: "/unitel.jpeg"
+      logo: "/unitel.webp"
     },
     {
       name: "Joprama",
-      logo: "/jopramo.jpg"
+      logo: "/jopramo.webp"
     }
   ];
 
